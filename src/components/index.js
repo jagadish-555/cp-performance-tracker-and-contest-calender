@@ -9,7 +9,9 @@ import Input from "./Input";
 import AuthLayout from "./AuthLayout";
 import Login from "./Login.jsx";
 import Calendar from "./Calendar.jsx";
-import YourPlatforms from "./YourPlatforms.jsx";
+import CodeforcesCard from "./CodeforcesCard.jsx";
+import CodechefCard from "./CodechefCard.jsx";
+import LeetcodeCard from "./LeetcodeCard.jsx";
 import UpcomingContests from "./UpcomingContests.jsx";
 export { 
     Header,
@@ -23,7 +25,9 @@ export {
     AuthLayout,
     Login,
     Calendar,
-    YourPlatforms,
-    UpcomingContests
+    UpcomingContests,
+    CodechefCard,
+    CodeforcesCard,
+    LeetcodeCard
 
     };

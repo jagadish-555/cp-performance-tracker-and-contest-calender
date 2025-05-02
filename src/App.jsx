@@ -6,6 +6,7 @@ import {login, logout} from "./store/authSlice"
 import { Footer, Header } from './components'
 import { Outlet } from 'react-router-dom'
 import conf from './conf/conf.js'
+
 function App() {
 //   console.log("Appwrite URL:", conf.appwriteUrl);
 // console.log("Appwrite Project ID:", conf.appwriteProjectId);
