@@ -9,6 +9,8 @@ import Input from "./Input";
 import AuthLayout from "./AuthLayout";
 import Login from "./Login.jsx";
 import Calendar from "./Calendar.jsx";
+import YourPlatforms from "./YourPlatforms.jsx";
+import UpcomingContests from "./UpcomingContests.jsx";
 export { 
     Header,
     Footer,
@@ -20,5 +22,8 @@ export {
     Input,
     AuthLayout,
     Login,
-    Calendar
+    Calendar,
+    YourPlatforms,
+    UpcomingContests
+
     };
