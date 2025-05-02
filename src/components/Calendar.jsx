@@ -1,14 +1,11 @@
-// Calendar.jsx
 import React from 'react';
 
 const Calendar = () => {
   return (
-    <div className="w-full h-[80vh] flex justify-center items-center">
+    <div className="w-full h-[calc(100vh-60px)] p-4">
       <iframe
         src="https://calendar.google.com/calendar/u/0/embed?src=iu1iul1u3n8ic3s78f4df15u4o@group.calendar.google.com"
-        style={{ border: 0 }}
-        width="800"
-        height="600"
+        className="w-full h-full border-0"
         frameBorder="0"
         scrolling="no"
         title="Google Calendar"
@@ -17,4 +14,4 @@ const Calendar = () => {
   );
 };
 
-export default Calendar;  // Default export
+export default Calendar;

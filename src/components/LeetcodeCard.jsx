@@ -35,13 +35,16 @@ const LeetcodeCard = ({ handle }) => {
   const hard = stats.find(d => d.difficulty === 'Hard')?.count || 0;
 
   const contestRating = data.userContestRanking?.rating || 'Unrated';
+  const streak = user.userCalendar?.streak || 0;
 
   return (
     <div className="bg-white rounded-2xl shadow-md p-6 max-w-sm w-full relative">
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <img src={avatar} alt={username} className="w-10 h-10 rounded-full" />
+          <div className="w-10 h-10 bg-yellow-100 rounded-xl flex items-center justify-center text-yellow-600 text-xl">
+            &lt;/&gt;
+          </div>
           <div>
             <h2 className="text-lg font-bold">LeetCode</h2>
             <p className="text-xs text-gray-500">@{username}</p>
@@ -66,27 +69,33 @@ const LeetcodeCard = ({ handle }) => {
         <div>
           <p className="text-gray-500">Contest Rating</p>
           <p className="text-2xl font-bold">
-            {typeof contestRating === 'number' ? contestRating : 'Unrated'}
+            {typeof contestRating === 'number' ? Math.round(contestRating) : 'Unrated'}
           </p>
         </div>
         <div>
           <p className="text-gray-500">Easy</p>
-          <p className="text-2xl font-bold">{easy}</p>
+          <span className="inline-block bg-green-100 text-green-600 font-semibold text-lg px-2 py-0.5 rounded">
+            {easy}
+          </span>
         </div>
         <div>
           <p className="text-gray-500">Medium</p>
-          <p className="text-2xl font-bold">{medium}</p>
+          <span className="inline-block bg-yellow-100 text-yellow-600 font-semibold text-lg px-2 py-0.5 rounded">
+            {medium}
+          </span>
         </div>
         <div>
           <p className="text-gray-500">Hard</p>
-          <p className="text-2xl font-bold">{hard}</p>
+          <span className="inline-block bg-red-100 text-red-600 font-semibold text-lg px-2 py-0.5 rounded">
+            {hard}
+          </span>
         </div>
       </div>
 
-      {/* Footer (optional) */}
-      <div className="absolute bottom-4 right-4 text-sm text-gray-500">
-        <TrendingUp size={16} className="inline mr-1" />
-        Streak: {user.userCalendar.streak} days
+      {/* Footer */}
+      <div className="absolute bottom-4 right-4 text-sm text-gray-600 flex items-center">
+        <TrendingUp size={16} className="mr-1" />
+        Streak: {streak} days
       </div>
     </div>
   );

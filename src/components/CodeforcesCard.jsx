@@ -7,7 +7,9 @@ const CodeforcesCard = ({ handle }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://codeforces.com/api/user.info?handles=${handle}&checkHistoricHandles=true`);
+        const res = await fetch(
+          `https://codeforces.com/api/user.info?handles=${handle}&checkHistoricHandles=true`
+        );
         const result = await res.json();
         if (result.status === 'OK') {
           setData(result.result[0]);
@@ -26,8 +28,6 @@ const CodeforcesCard = ({ handle }) => {
 
   const {
     handle: userHandle,
-    avatar,
-    titlePhoto,
     rating,
     maxRating,
     rank,
@@ -41,11 +41,9 @@ const CodeforcesCard = ({ handle }) => {
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <img
-            src={avatar}
-            alt={userHandle}
-            className="w-10 h-10 rounded-full border border-gray-200"
-          />
+          <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl">
+            <span>&lt;/&gt;</span>
+          </div>
           <div>
             <h2 className="text-lg font-bold">Codeforces</h2>
             <p className="text-xs text-gray-500">@{userHandle}</p>
@@ -65,26 +63,36 @@ const CodeforcesCard = ({ handle }) => {
       <div className="grid grid-cols-2 gap-4 text-sm mt-4">
         <div>
           <p className="text-gray-500">Current Rating</p>
-          <p className="text-2xl font-bold">{rating}</p>
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-bold">{rating}</span>
+            <span className="text-xs bg-indigo-100 text-indigo-600 font-semibold px-2 py-0.5 rounded">
+              {rank}
+            </span>
+          </div>
         </div>
         <div>
           <p className="text-gray-500">Max Rating</p>
-          <p className="text-2xl font-bold">{maxRating}</p>
+          <div className="flex items-center gap-2">
+            <span className="text-2xl font-bold">{maxRating}</span>
+            <span className="text-xs bg-green-100 text-green-600 font-semibold px-2 py-0.5 rounded">
+              {maxRank}
+            </span>
+          </div>
         </div>
         <div>
-          <p className="text-gray-500">Rank</p>
-          <p className="text-xl font-semibold capitalize">{rank}</p>
+          <p className="text-gray-500">Friends</p>
+          <p className="text-2xl font-bold">{friendOfCount}</p>
         </div>
         <div>
-          <p className="text-gray-500">Max Rank</p>
-          <p className="text-xl font-semibold capitalize">{maxRank}</p>
+          <p className="text-gray-500">Contribution</p>
+          <p className="text-2xl font-bold">{contribution}</p>
         </div>
       </div>
 
-      {/* Extra Info */}
+      {/* Rating Info */}
       <div className="mt-4 flex items-center text-sm text-blue-600 font-medium gap-2">
         <TrendingUp size={16} />
-        {contribution} contribution · {friendOfCount} friends
+        Rank: <span className="capitalize">{rank}</span> · Max Rank: <span className="capitalize">{maxRank}</span>
       </div>
     </div>
   );

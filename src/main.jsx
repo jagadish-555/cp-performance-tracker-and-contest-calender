@@ -1,22 +1,26 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { Provider } from 'react-redux';
 import store from './store/store.js';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import { RouterProvider, createBrowserRouter, Navigate } from 'react-router-dom'; // ⬅️ added Navigate
 import { AuthLayout, Login } from './components/index.js';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard.jsx';
-import Calendar from './pages/Calendar.jsx'; // Add Calendar import
+import Calendar from './pages/Calendar.jsx';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     children: [
       {
-        path: "/dashboard",  // Set the dashboard as the main page
+        index: true, // This matches the root path "/"
+        element: <Navigate to="/dashboard" replace /> // ⬅️ redirect from "/" to "/dashboard"
+      },
+      {
+        path: '/dashboard',
         element: (
           <AuthLayout authentication>
             <Dashboard />
@@ -24,7 +28,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/calendar",  // Calendar page route
+        path: '/calendar',
         element: (
           <AuthLayout authentication>
             <Calendar />
@@ -32,7 +36,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/login",
+        path: '/login',
         element: (
           <AuthLayout authentication={false}>
             <Login />
@@ -40,7 +44,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "/signup",
+        path: '/signup',
         element: (
           <AuthLayout authentication={false}>
             <Signup />

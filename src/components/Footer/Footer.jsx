@@ -6,7 +6,7 @@ const Footer = () => {
     <footer className="bg-gray-100 text-gray-800 py-10 mt-20 shadow-inner">
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between">
         <p className="text-lg font-medium text-center md:text-left mb-6 md:mb-0">
-          © {new Date().getFullYear()} Jagadish Ishwar Patil. All rights reserved.
+          © {new Date().getFullYear()} Jagadish Patil. All rights reserved.
         </p>
         <div className="flex space-x-6">
           <a
