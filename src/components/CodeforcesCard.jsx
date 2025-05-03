@@ -3,24 +3,42 @@ import { ArrowUpRight, TrendingUp } from 'lucide-react';
 
 const CodeforcesCard = ({ handle }) => {
   const [data, setData] = useState(null);
+  const [error, setError] = useState(null); // <-- Error state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setError(null); // Reset error
+        setData(null);  // Reset previous data
+
         const res = await fetch(
           `https://codeforces.com/api/user.info?handles=${handle}&checkHistoricHandles=true`
         );
         const result = await res.json();
+
         if (result.status === 'OK') {
           setData(result.result[0]);
+        } else {
+          setError('User not found or invalid handle.');
         }
       } catch (err) {
         console.error('Error fetching Codeforces data:', err);
+        setError('Failed to fetch data. Please try again later.');
       }
     };
 
-    fetchData();
+    if (handle) {
+      fetchData();
+    }
   }, [handle]);
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 bg-red-50 border border-red-200 p-4 rounded-md">
+        {error}
+      </div>
+    );
+  }
 
   if (!data) {
     return <div className="text-center text-gray-500">Loading...</div>;
@@ -42,7 +60,7 @@ const CodeforcesCard = ({ handle }) => {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center text-blue-600 text-xl">
-            <span>&lt;/&gt;</span>
+            &lt;/&gt;
           </div>
           <div>
             <h2 className="text-lg font-bold">Codeforces</h2>

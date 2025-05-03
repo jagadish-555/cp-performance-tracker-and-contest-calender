@@ -4,10 +4,13 @@ import { ArrowUpRight, TrendingUp } from 'lucide-react';
 const CodechefCard = ({ handle }) => {
   const [data, setData] = useState(null);
   const [lastRatingChange, setLastRatingChange] = useState(0);
+  const [error, setError] = useState(null); // <-- Error state
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setError(null);
+        setData(null);
         const res = await fetch(`https://codechef-api.vercel.app/handle/${handle}`);
         const result = await res.json();
         if (result.success) {
@@ -19,14 +22,27 @@ const CodechefCard = ({ handle }) => {
               parseInt(history[history.length - 2].rating);
             setLastRatingChange(diff);
           }
+        } else {
+          setError('Invalid handle or user not found.');
         }
       } catch (err) {
         console.error('Error fetching CodeChef data:', err);
+        setError('Failed to fetch data. Please try again later.');
       }
     };
 
-    fetchData();
+    if (handle) {
+      fetchData();
+    }
   }, [handle]);
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 bg-red-50 border border-red-200 p-4 rounded-md">
+        {error}
+      </div>
+    );
+  }
 
   if (!data) {
     return <div className="text-center text-gray-500">Loading...</div>;
