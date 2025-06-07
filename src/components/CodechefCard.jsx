@@ -4,7 +4,7 @@ import { ArrowUpRight, TrendingUp } from 'lucide-react';
 const CodechefCard = ({ handle }) => {
   const [data, setData] = useState(null);
   const [lastRatingChange, setLastRatingChange] = useState(0);
-  const [error, setError] = useState(null); // <-- Error state
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
