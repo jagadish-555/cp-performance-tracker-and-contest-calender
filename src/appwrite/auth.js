@@ -8,21 +8,21 @@ export class AuthService {
 
     constructor() {
         this.client
-            .setEndpoint(conf.appwriteUrl) // Set Appwrite endpoint
-            .setProject(conf.appwriteProjectId) // Set Appwrite project ID
-            // .setCookieFallback(true); // Enable cookie fallback for session management
+            .setEndpoint(conf.appwriteUrl) 
+            .setProject(conf.appwriteProjectId) 
+
 
         this.account = new Account(this.client);
         this.databases = new Databases(this.client);
     }
 
-    // Create account and login the user
+
     async createAccount({ email, password, name, codeforcesId, leetcodeId, codechefId }) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
 
             if (userAccount) {
-                // Create a user profile document in the database
+
                 await this.databases.createDocument(
                     conf.appwriteDatabaseId,
                     conf.appwriteCollectionId,
@@ -35,7 +35,7 @@ export class AuthService {
                     }
                 );
 
-                // Login the user after account creation
+
                 return this.login({ email, password });
             }
 
@@ -46,7 +46,7 @@ export class AuthService {
         }
     }
 
-    // Login the user using email and password
+
     async login({ email, password }) {
         try {
             const session = await this.account.createEmailPasswordSession(email, password);
@@ -58,10 +58,10 @@ export class AuthService {
         }
     }
 
-    // Get the current logged-in user
+
     async getCurrentUser() {
         try {
-            const user = await this.account.get(); // Fetch the current authenticated user
+            const user = await this.account.get(); 
             console.log("AuthService :: getCurrentUser :: user", user);
             return user;
         } catch (error) {
@@ -69,41 +69,41 @@ export class AuthService {
             if (error.code === 401) {
                 console.warn("AuthService :: getCurrentUser :: Unauthorized. No active session.");
             }
-            return null; // Return null if the user is not authenticated
+            return null; 
         }
     }
 
-    // Logout the current user
+
     async logout() {
         try {
-            await this.account.deleteSessions(); // Delete all sessions to log out the user
+            await this.account.deleteSessions(); 
             console.log("AuthService :: logout :: User logged out successfully");
         } catch (error) {
             console.error("AuthService :: logout :: error", error);
         }
     }
 
-    // Fetch user profile based on the logged-in user
+
     async getUserProfile() {
         try {
             const currentUser = await this.getCurrentUser();
 
-            // Ensure the user is logged in
+
             if (!currentUser) {
                 throw new Error("No logged-in user");
             }
 
-            // Query for the user's profile document
+
             const result = await this.databases.listDocuments(
                 conf.appwriteDatabaseId,
                 conf.appwriteCollectionId,
                 [
-                    Query.equal("userId", currentUser.$id) // Match the profile by userId
+                    Query.equal("userId", currentUser.$id) 
                 ]
             );
 
             if (result.total > 0) {
-                return result.documents[0]; // Return the first matched profile
+                return result.documents[0]; 
             } else {
                 throw new Error("User profile not found");
             }
@@ -115,6 +115,6 @@ export class AuthService {
     }
 }
 
-// Instantiate and export the AuthService
+
 const authService = new AuthService();
 export default authService;
