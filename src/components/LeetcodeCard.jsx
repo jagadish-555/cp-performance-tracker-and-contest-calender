@@ -3,13 +3,13 @@ import { ArrowUpRight, TrendingUp } from 'lucide-react';
 
 const LeetcodeCard = ({ handle }) => {
   const [data, setData] = useState(null);
-  const [error, setError] = useState(null); // <-- Add this
+  const [error, setError] = useState(null); 
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        setError(null); // Reset error
-        setData(null);  // Reset data
+        setError(null); 
+        setData(null);  
         const res = await fetch(`https://competeapi.vercel.app/user/leetcode/${handle}`);
         const result = await res.json();
         if (result.data && result.data.matchedUser) {
