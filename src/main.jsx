@@ -16,8 +16,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        index: true, // This matches the root path "/"
-        element: <Navigate to="/dashboard" replace /> // ⬅️ redirect from "/" to "/dashboard"
+        index: true, 
+        element: <Navigate to="/dashboard" replace /> 
       },
       {
         path: '/dashboard',
